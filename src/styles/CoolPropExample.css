@@ -1,31 +1,208 @@
-h1, h2 {
-    font-family: Arial, sans-serif;
-    color: #333;
+/* Geral */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #eef1f7;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px; /* Ajusta para telas grandes */
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Títulos */
+h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #34495e;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #dceeff;
+  padding-bottom: 0.5rem;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Campos de propriedades */
+.property-fields {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.property-fields > div {
+  flex: 1 1 calc(50% - 1rem);
+  min-width: 250px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.property-fields label {
+  font-weight: bold;
+  color: #555;
+}
+
+input, select {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus {
+  border-color: #3498db;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* Botão */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+button {
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  background: #1c5986;
+  transform: scale(0.98);
+}
+
+/* Resultados */
+.result {
+  margin-top: 2.5rem;
+  padding: 1.8rem;
+  background: #f4f9ff;
+  border: 1px solid #dceeff;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Tabela de Resultados */
+.result table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  background: #ffffff;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.result table th, .result table td {
+  text-align: left;
+  padding: 1.2rem;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.result table th {
+  font-weight: bold;
+  color: white;
+  background: #3498db;
+  text-transform: uppercase;
+}
+
+.result table td {
+  color: #333;
+  background: #f9f9f9;
+}
+
+.result table tr:nth-child(even) td {
+  background: #f2f2f2;
+}
+
+.result table tr:hover td {
+  background: #eaf5ff;
+}
+
+/* Media Queries */
+
+/* Ajustes para tablets */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 95%; /* Ocupa 95% da largura */
   }
-  
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+
+  .property-fields > div {
+    flex: 1 1 calc(50% - 0.5rem); /* Ajusta o espaço horizontal */
   }
-  
-  input, select, .react-select__control {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
+}
+
+/* Ajustes para celulares */
+@media (max-width: 768px) {
+  .property-fields > div {
+    flex: 1 1 100%; /* Campos ocupam 100% do espaço */
   }
-  
-  button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    cursor: pointer;
-    border-radius: 5px;
+
+  .container {
+    max-width: 100%;
+    padding: 1.5rem;
   }
-  
-  button:hover {
-    background-color: #0056b3;
+}
+
+/* Ajustes para telas ultrawide */
+@media (min-width: 2560px) {
+  .container {
+    max-width: 1400px;
   }
-  
+
+  .property-fields > div {
+    flex: 1 1 calc(33.33% - 1rem); /* Três colunas em telas grandes */
+  }
+}
