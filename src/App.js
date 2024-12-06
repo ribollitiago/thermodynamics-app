@@ -177,26 +177,29 @@ const App = () => {
       const Q = window.Module.PropsSI("Q", key1, val1, key2, val2, fluidName);
       const Cp = window.Module.PropsSI("Cp", key1, val1, key2, val2, fluidName);
       const Cv = window.Module.PropsSI("Cv", key1, val1, key2, val2, fluidName);
-      const result = `
-        Temperature [K]        ${T.toFixed(2)}
-        Pressure [Pa]          ${P.toFixed(2)}
-        Vapor Quality [-]      ${Q.toFixed(2)}
-        Density [kg/m³]        ${D.toFixed(2)}
-        Enthalpy [J/kg]        ${H.toFixed(2)}
-        Entropy [J/kg·K]       ${S.toFixed(2)}
-        Internal Energy [J/kg] ${U.toFixed(2)}
-        Constant-pressure specific heat [J/kg·K] ${Cp.toFixed(2)}
-        Constant-volume specific heat [J/kg·K] ${Cv.toFixed(2)}
-      `;
-      setOutput(result);
+
+      // Criação do output como array de objetos
+      const result = [
+        { key: "Temperature [K]", value: T.toFixed(2) },
+        { key: "Pressure [Pa]", value: P.toFixed(2) },
+        { key: "Vapor Quality [-]", value: Q.toFixed(2) },
+        { key: "Density [kg/m³]", value: D.toFixed(2) },
+        { key: "Enthalpy [J/kg]", value: H.toFixed(2) },
+        { key: "Entropy [J/kg·K]", value: S.toFixed(2) },
+        { key: "Internal Energy [J/kg]", value: U.toFixed(2) },
+        { key: "Constant-pressure specific heat [J/kg·K]", value: Cp.toFixed(2) },
+        { key: "Constant-volume specific heat [J/kg·K]", value: Cv.toFixed(2) },
+      ];
+
+      setOutput(result); // Atualiza o estado com o resultado
     } catch (error) {
-      setOutput("Erro no cálculo: " + error.message);
+      setOutput([{ key: "Erro", value: `Erro no cálculo: ${error.message}` }]);
     }
   };
 
   return (
     <div>
-      <h1>Exemplo CoolProp</h1>
+      <h1>Projeto Hackaton</h1>
       <CoolPropForm
         fluids={fluids}
         properties={properties}
