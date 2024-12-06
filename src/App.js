@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CoolPropForm from "./components/CoolPropForm";
 import ResultDisplay from "./components/ResultDisplay";
 import { text2key } from "./utils/coolPropKeys";
-import {fluids, properties} from "./constants/constants";
+import { fluids, properties } from "./constants/constants";
 import "./styles/CoolPropExample.css";
 
 const App = () => {
@@ -11,6 +11,7 @@ const App = () => {
   const [property2, setProperty2] = useState("");
   const [value1, setValue1] = useState("");
   const [value2, setValue2] = useState("");
+  const [unitType, setUnitType] = useState("mass");
   const [output, setOutput] = useState("");
 
   const handleCalculate = () => {
@@ -25,35 +26,38 @@ const App = () => {
     const val2 = parseFloat(value2);
 
     if (!key1 || !key2 || isNaN(val1) || isNaN(val2)) {
-      setOutput("Por favor, insira valores válidos.");
+      setOutput("Por favor, insira valores válidos para todas as entradas.");
       return;
     }
 
     try {
-      const T = window.Module.PropsSI("T", key1, val1, key2, val2, fluidName);
-      const P = window.Module.PropsSI("P", key1, val1, key2, val2, fluidName);
-      const D = window.Module.PropsSI("D", key1, val1, key2, val2, fluidName);
-      const H = window.Module.PropsSI("H", key1, val1, key2, val2, fluidName);
-      const S = window.Module.PropsSI("S", key1, val1, key2, val2, fluidName);
-      const U = window.Module.PropsSI("U", key1, val1, key2, val2, fluidName);
-      const Q = window.Module.PropsSI("Q", key1, val1, key2, val2, fluidName);
-      const Cp = window.Module.PropsSI("Cp", key1, val1, key2, val2, fluidName);
-      const Cv = window.Module.PropsSI("Cv", key1, val1, key2, val2, fluidName);
+      const fluidWithUnitType = unitType === "mass" ? fluidName : `${fluidName}__mole`;
+      const CpKey = unitType === "mass" ? "Cpmass" : "Cpmole";
+      const CvKey = unitType === "mass" ? "Cvmass" : "Cvmole";
 
-      // Criação do output como array de objetos
-      const result = [
-        { key: "Temperature [K]", value: T.toFixed(2) },
-        { key: "Pressure [Pa]", value: P.toFixed(2) },
-        { key: "Vapor Quality [-]", value: Q.toFixed(2) },
-        { key: "Density [kg/m³]", value: D.toFixed(2) },
-        { key: "Enthalpy [J/kg]", value: H.toFixed(2) },
-        { key: "Entropy [J/kg·K]", value: S.toFixed(2) },
-        { key: "Internal Energy [J/kg]", value: U.toFixed(2) },
-        { key: "Constant-pressure specific heat [J/kg·K]", value: Cp.toFixed(2) },
-        { key: "Constant-volume specific heat [J/kg·K]", value: Cv.toFixed(2) },
-      ];
+      const propertiesToCalculate = {
+        Temperature: "T",
+        Pressure: "P",
+        VaporQuality: "Q",
+        Density: "D",
+        Enthalpy: "H",
+        Entropy: "S",
+        InternalEnergy: "U",
+        Cp: CpKey,
+        Cv: CvKey,
+      };
 
-      setOutput(result); // Atualiza o estado com o resultado
+      const results = Object.entries(propertiesToCalculate).reduce((acc, [key, prop]) => {
+        try {
+          const value = window.Module.PropsSI(prop, key1, val1, key2, val2, fluidWithUnitType);
+          acc.push({ key, value: isNaN(value) ? "Valor inválido (verifique as entradas ou limites do fluido)" : value.toFixed(2) });
+        } catch (error) {
+          acc.push({ key, value: "Valor inválido (verifique as entradas ou limites do fluido)" });
+        }
+        return acc;
+      }, []);
+
+      setOutput(results);
     } catch (error) {
       setOutput([{ key: "Erro", value: `Erro no cálculo: ${error.message}` }]);
     }
@@ -61,7 +65,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Projeto Hackaton</h1>
+      <h1>Exemplo CoolProp Adaptado</h1>
       <CoolPropForm
         fluids={fluids}
         properties={properties}
@@ -70,6 +74,8 @@ const App = () => {
         property2={property2}
         value1={value1}
         value2={value2}
+        unitType={unitType}
+        setUnitType={setUnitType}
         setFluidName={setFluidName}
         setProperty1={setProperty1}
         setProperty2={setProperty2}
