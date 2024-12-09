@@ -9,6 +9,8 @@ const CoolPropForm = ({
   property2,
   value1,
   value2,
+  unitType,
+  setUnitType,
   setFluidName,
   setProperty1,
   setProperty2,
@@ -26,6 +28,13 @@ const CoolPropForm = ({
           value={{ value: fluidName, label: fluidName }}
           onChange={(selectedOption) => setFluidName(selectedOption.value)}
         />
+      </div>
+      <div>
+        <label>Unidade de cálculo:</label>
+        <select value={unitType} onChange={(e) => setUnitType(e.target.value)}>
+          <option value="mass">Massa</option>
+          <option value="mol">Mol</option>
+        </select>
       </div>
       <div className="property-fields">
         <div>
