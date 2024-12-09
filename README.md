@@ -4,72 +4,93 @@ Este projeto é um aplicativo desenvolvido em React que permite consultar valore
 
 **🔗 [Acesse o Sistema](https://thermoapp.netlify.app)**
 
-## Visão Geral
+---
 
-O aplicativo permite que os usuários selecionem um fluido e insiram duas propriedades com seus respectivos valores para calcular outras propriedades termodinâmicas. O CoolProp é utilizado para realizar os cálculos, proporcionando um conjunto abrangente de dados termodinâmicos.
+## Construído com
+
+* **[React](https://react.dev/):** Biblioteca JavaScript moderna para construção de interfaces de usuário dinâmicas e reativas.  
+* **[CoolProp](http://www.coolprop.org):** Ferramenta de código aberto para cálculos precisos de propriedades termodinâmicas e transporte, utilizada para consultar dados de substâncias puras e misturas.  
+* **[Ionic Framework](https://ionicframework.com):** Framework para desenvolvimento de aplicativos híbridos, permitindo criar interfaces móveis modernas e responsivas.  
+* **[Capacitor](https://capacitorjs.com):** Ferramenta para integrar funcionalidades nativas e realizar o deploy do aplicativo em diferentes plataformas, como iOS, Android e web.  
+
+---
+
+## Configuração do Ambiente
+
+* **Node.js:** Versão mais recente.  
+* **NPM ou Yarn:** Gerenciador de pacotes.  
+
+### Passos para Configurar o Ambiente
+
+1. Instale o [Node.js](https://nodejs.org/) e o [npm](https://www.npmjs.com/get-npm) (ou [Yarn](https://yarnpkg.com/)).  
+
+2. Clone o repositório do projeto:  
+   ```sh
+   git clone https://github.com/ribollitiago/thermodynamics-app.git
+   ```  
+
+3. Navegue até o diretório do projeto:  
+   ```sh
+   cd thermodynamics-app
+   ```  
+
+4. Instale as dependências do projeto:  
+   ```sh
+   npm install
+   # ou
+   yarn install
+   ```  
+
+---
 
 ## Estrutura do Projeto
 
-### Componente Principal - `App.js`
+```
+src
+│
+├── components
+│   ├── CoolPropForm.jsx
+│   └── ResultDisplay.jsx
+│
+├── constants
+│   └── constants.js
+│
+├── App.js
+└── index.js
+```
 
-Este componente gerencia o estado do aplicativo e integra os componentes `CoolPropForm` e `ResultDisplay`.
+## CoolProp
 
-- **Estados Gerenciados:**
-  - `fluidName`: Nome do fluido selecionado.
-  - `property1`, `property2`: Propriedades a serem usadas no cálculo.
-  - `value1`, `value2`: Valores das propriedades inseridas pelo usuário.
-  - `output`: Resultado do cálculo exibido para o usuário.
+É utilizado o [CoolProp](http://www.coolprop.org) para calcular propriedades termodinâmicas de substâncias e misturas. O CoolProp é uma ferramenta precisa e de código aberto, amplamente usada para consultar propriedades como temperatura, pressão, entalpia, entropia, entre outras, de fluidos puros e misturas.
 
-- **Função `handleCalculate`:**
-  - Verifica se o CoolProp está carregado corretamente.
-  - Converte os nomes das propriedades em chaves reconhecidas pelo CoolProp.
-  - Realiza os cálculos das propriedades termodinâmicas.
-  - Atualiza o estado `output` com os resultados ou uma mensagem de erro, se ocorrer.
+### Funcionalidade no Aplicativo:
 
-### Utilitários - `utils/coolPropKeys.js`
+- **Consulta de Propriedades de Substâncias Puras:** O usuário escolhe um fluido (ex: água) e insere dois parâmetros conhecidos (como temperatura e pressão). O aplicativo utiliza o CoolProp para calcular as demais propriedades desse fluido.
 
-Este arquivo contém a função `text2key`, que converte o texto da propriedade selecionada pelo usuário em uma chave reconhecida pelo CoolProp.
+- **Cálculo de Propriedades de Misturas:** O usuário pode selecionar dois fluidos e definir a proporção de cada um. O aplicativo então usa o CoolProp para calcular as propriedades resultantes da mistura com base nas proporções fornecidas.
 
-### Estilos - `styles/CoolPropExample.css`
+Esses cálculos são feitos utilizando a função `PropsSI` do CoolProp, que fornece resultados precisos para várias propriedades termodinâmicas, seja para um único fluido ou para uma mistura dos dois.
 
-Este arquivo define os estilos básicos para os componentes do aplicativo, incluindo formatação de texto, disposição dos elementos e estilo dos botões.
+### Funcionalidade da API:
 
-### Componentes
+A integração com a API do CoolProp é realizada através da função PropsSI, que calcula as propriedades de um fluido dado um conjunto de entradas, como a propriedade que se deseja calcular (por exemplo, densidade ou entalpia), e as condições do fluido (como temperatura, pressão, etc.).
 
-#### `CoolPropForm.jsx`
+### Exemplo de uso:
 
-Componente responsável pelo formulário de entrada de dados. Permite ao usuário selecionar o fluido, as propriedades e inserir os valores necessários.
+Quando o usuário insere os valores e clica para calcular, o aplicativo chama a função window.Module.PropsSI, passando as propriedades desejadas e os parâmetros inseridos. O CoolProp, então, retorna os resultados que são exibidos no aplicativo.
 
-- **Propriedades Recebidas:**
-  - `fluids`: Lista de fluidos disponíveis.
-  - `properties`: Lista de propriedades disponíveis.
-  - `fluidName`: Nome do fluido selecionado.
-  - `property1`, `property2`: Propriedades selecionadas.
-  - `value1`, `value2`: Valores das propriedades.
-  - `setFluidName`, `setProperty1`, `setProperty2`, `setValue1`, `setValue2`: Funções para atualizar o estado.
-  - `onCalculate`: Função chamada quando o botão de calcular é clicado.
+Exemplo de cálculo de densidade para um fluido puro:
 
-#### `ResultDisplay.jsx`
+```
+const density = window.Module.PropsSI("Dmass", "T", temperature, "P", pressure, fluidName);
+```
 
-Componente responsável por exibir os resultados dos cálculos das propriedades termodinâmicas.
-
-- **Propriedades Recebidas:**
-  - `output`: String contendo os resultados dos cálculos a serem exibidos.
-
-## Como Executar o Projeto
-
-1. Clone este repositório.
-2. Instale as dependências com `npm install`.
-3. Inicie o aplicativo com `npm start`.
-4. Acesse `http://localhost:3000` no seu navegador para visualizar o aplicativo.
-
-## Contribuições
-
-Sinta-se à vontade para fazer fork deste repositório e enviar pull requests. Toda contribuição é bem-vinda!
+---
 
 ## 📌 Versão
 
-Atualmente em ínicio de desenvolvimento sem uma versão fixa.
+Atualmente em início de desenvolvimento, sem uma versão fixa.  
 
 ---
+
 ⌨️ por [Tiago Ribolli](https://gist.github.com/ribollitiago)
