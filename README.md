@@ -8,10 +8,10 @@ Este projeto é um aplicativo desenvolvido em React que permite consultar valore
 
 ## Construído com
 
-* **[React](https://react.dev/):** Biblioteca JavaScript moderna para construção de interfaces de usuário dinâmicas e reativas.  
-* **[CoolProp](http://www.coolprop.org):** Ferramenta de código aberto para cálculos precisos de propriedades termodinâmicas e transporte, utilizada para consultar dados de substâncias puras e misturas.  
-* **[Ionic Framework](https://ionicframework.com):** Framework para desenvolvimento de aplicativos híbridos, permitindo criar interfaces móveis modernas e responsivas.  
-* **[Capacitor](https://capacitorjs.com):** Ferramenta para integrar funcionalidades nativas e realizar o deploy do aplicativo em diferentes plataformas, como iOS, Android e web.  
+* **[React](https://react.dev/)** - Biblioteca JavaScript moderna para construção de interfaces de usuário dinâmicas e reativas.  
+* **[CoolProp](http://www.coolprop.org)** - Ferramenta de código aberto para cálculos precisos de propriedades termodinâmicas e transporte, utilizada para consultar dados de substâncias puras e misturas.  
+* **[Ionic Framework](https://ionicframework.com)** - Framework para desenvolvimento de aplicativos híbridos, permitindo criar interfaces móveis modernas e responsivas.  
+* **[Capacitor](https://capacitorjs.com)** - Ferramenta para integrar funcionalidades nativas e realizar o deploy do aplicativo em diferentes plataformas, como iOS, Android e web.  
 
 ---
 
