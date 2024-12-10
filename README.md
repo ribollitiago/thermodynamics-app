@@ -1,6 +1,6 @@
 # Aplicativo de Consulta de Propriedades Termodinâmicas
 
-Este projeto é um aplicativo desenvolvido em React que permite consultar valores termodinâmicos de substâncias e misturas utilizando a API do CoolProp.
+Este projeto é um aplicativo desenvolvido em React que permite consultar valores termodinâmicos de substâncias e misturas utilizando a ferramenta CoolProp.
 
 **🔗 [Acesse o Sistema](https://thermoapp.netlify.app)**
 
@@ -71,9 +71,9 @@ src
 
 Esses cálculos são feitos utilizando a função `PropsSI` do CoolProp, que fornece resultados precisos para várias propriedades termodinâmicas, seja para um único fluido ou para uma mistura dos dois.
 
-### Funcionalidade da API:
+### Funcionalidade:
 
-A integração com a API do CoolProp é realizada através da função PropsSI, que calcula as propriedades de um fluido dado um conjunto de entradas, como a propriedade que se deseja calcular (por exemplo, densidade ou entalpia), e as condições do fluido (como temperatura, pressão, etc.).
+A integração do CoolProp é realizada através da função PropsSI, que calcula as propriedades de um fluido dado um conjunto de entradas, como a propriedade que se deseja calcular (por exemplo, densidade ou entalpia), e as condições do fluido (como temperatura, pressão, etc.).
 
 ### Exemplo de uso:
 
