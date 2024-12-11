@@ -260,12 +260,24 @@ button:active {
   padding: 5px;
   position: absolute;
   top: 30px; 
-  left: 0;
+  left: 100%; /* Padrão: aparece à direita */
+  margin-left: 10px;
   z-index: 1;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .info-icon:hover .tooltip-text {
   visibility: visible;
+}
+
+/* Mobile: tooltip aparece à esquerda */
+@media (max-width: 768px) {
+  .tooltip-text {
+    left: auto;
+    right: 100%; /* Faz a tooltip aparecer à esquerda */
+    margin-left: 0;
+    margin-right: 10px;
+  }
 }
 
