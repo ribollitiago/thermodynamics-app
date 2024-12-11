@@ -7,46 +7,43 @@ import "./styles/CoolPropExample.css";
 
 const App = () => {
   const [fluidName, setFluidName] = useState("Water");
-  const [fluidName2, setFluidName2] = useState("Water");  // Para a mistura
+  const [fluidName2, setFluidName2] = useState("Water");  
   const [property1, setProperty1] = useState("");
   const [property2, setProperty2] = useState("");
   const [value1, setValue1] = useState("");
   const [value2, setValue2] = useState("");
   const [unitType, setUnitType] = useState("mass");
-  const [proportion1, setProportion1] = useState("");  // Proporção do fluido 1
-  const [proportion2, setProportion2] = useState("");  // Proporção do fluido 2
+  const [proportion1, setProportion1] = useState("");  
+  const [proportion2, setProportion2] = useState("");  
   const [output, setOutput] = useState("");
-  const [isMixture, setIsMixture] = useState(false);  // Estado da checkbox
+  const [isMixture, setIsMixture] = useState(false);  
 
   const handleCalculate = () => {
     if (!window.Module || !window.Module.PropsSI) {
       setOutput("CoolProp não carregado corretamente.");
       return;
     }
-
+  
     const key1 = text2key(property1);
     const key2 = text2key(property2);
     const val1 = parseFloat(value1);
     const val2 = parseFloat(value2);
     const prop1 = parseFloat(proportion1);
     const prop2 = parseFloat(proportion2);
-
+  
     if (!key1 || !key2 || isNaN(val1) || isNaN(val2)) {
       setOutput("Por favor, insira valores válidos para todas as entradas.");
       return;
     }
-
+  
     try {
-      // Lógica de mistura, caso a checkbox seja selecionada
       if (isMixture) {
-        // Ajusta as proporções
         const totalProportion = parseFloat(proportion1) + parseFloat(proportion2);
         if (isNaN(totalProportion) || totalProportion <= 0) {
           setOutput("As proporções dos fluidos devem ser válidas e somar um valor maior que 0.");
           return;
         }
-
-        // Para as misturas, ajustamos os cálculos levando em conta a proporção de massa ou molar
+  
         const propertiesToCalculate = {
           Temperature: "T",
           Pressure: "P",
@@ -58,10 +55,9 @@ const App = () => {
           Cp: unitType === "mass" ? "Cpmass" : "Cpmolar",
           Cv: unitType === "mass" ? "Cvmass" : "Cvmolar",
         };
-
+  
         const results = Object.entries(propertiesToCalculate).reduce((acc, [key, prop]) => {
           try {
-            // Considera as propriedades dos dois fluidos com base nas proporções
             const value1Fluid = window.Module.PropsSI(
               prop,
               key1,
@@ -70,7 +66,7 @@ const App = () => {
               val2,
               fluidName
             );
-
+  
             const value2Fluid = window.Module.PropsSI(
               prop,
               key1,
@@ -79,25 +75,32 @@ const App = () => {
               val2,
               fluidName2
             );
-
-            // Combina as propriedades dos fluidos com base nas proporções
+  
             const mixedValue = (value1Fluid * prop1 + value2Fluid * prop2) / totalProportion;
-
+  
+            let formattedValue;
+            if (isNaN(mixedValue)) {
+              formattedValue = "Valor inválido (verifique as entradas ou limites do fluido)";
+            } else {
+              if (key === "Temperature" || key === "Pressure" || key === "VaporQuality") {
+                formattedValue = mixedValue.toFixed(1);  
+              } else {
+                formattedValue = mixedValue.toFixed(6);  
+              }
+            }
+  
             acc.push({
               key,
-              value: isNaN(mixedValue)
-                ? "Valor inválido (verifique as entradas ou limites do fluido)"
-                : mixedValue.toFixed(6),
+              value: formattedValue,
             });
           } catch (error) {
             acc.push({ key, value: "Erro no cálculo: " + error.message });
           }
           return acc;
         }, []);
-
+  
         setOutput(results);
       } else {
-        // Caso o cálculo seja para uma substância pura
         const propertiesToCalculate = {
           Temperature: "T",
           Pressure: "P",
@@ -109,7 +112,7 @@ const App = () => {
           Cp: unitType === "mass" ? "Cpmass" : "Cpmolar",
           Cv: unitType === "mass" ? "Cvmass" : "Cvmolar",
         };
-
+  
         const results = Object.entries(propertiesToCalculate).reduce((acc, [key, prop]) => {
           try {
             const value = window.Module.PropsSI(
@@ -118,31 +121,41 @@ const App = () => {
               val1,
               key2,
               val2,
-              fluidName // Apenas um fluido puro é considerado
+              fluidName 
             );
-
+  
+            let formattedValue;
+            if (isNaN(value)) {
+              formattedValue = "Valor inválido (verifique as entradas ou limites do fluido)";
+            } else {
+              if (key === "Temperature" || key === "Pressure" || key === "VaporQuality") {
+                formattedValue = value.toFixed(1);  
+              } else {
+                formattedValue = value.toFixed(6);  
+              }
+            }
+  
             acc.push({
               key,
-              value: isNaN(value)
-                ? "Valor inválido (verifique as entradas ou limites do fluido)"
-                : value.toFixed(6),
+              value: formattedValue,
             });
           } catch (error) {
             acc.push({ key, value: "Erro no cálculo: " + error.message });
           }
           return acc;
         }, []);
-
+  
         setOutput(results);
       }
     } catch (error) {
       setOutput([{ key: "Erro", value: `Erro no cálculo: ${error.message}` }]);
     }
   };
+  
 
   return (
     <div>
-      <h1>Exemplo CoolProp Ajustado</h1>
+      <h1>ThermoCalc</h1>
       <CoolPropForm
         fluids={fluids}
         properties={properties}

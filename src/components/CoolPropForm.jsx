@@ -24,14 +24,19 @@ const CoolPropForm = ({
   setProportion2,
   onCalculate,
 }) => {
-  const [isMixture, setIsMixture] = useState(false); 
+  const [isMixture, setIsMixture] = useState(false);
 
   return (
-    <div>
+    <div className="coolprop-form">
+      <div className="info-icon">
+  ℹ️
+  <span className="tooltip-text">Para misturas em massa, insira dois valores que somem 100. <br/> Para misturas molares, insira os valores nas unidades apropriadas.  </span>
+</div>
+
       <h2>Parâmetros de Entrada</h2>
 
       <div>
-        <label>Nome do fluido 1:</label>
+        <label>Nome do fluido:</label>
         <Select
           options={fluids.map((fluid) => ({ value: fluid, label: fluid }))}
           value={{ value: fluidName, label: fluidName }}
@@ -61,49 +66,48 @@ const CoolPropForm = ({
       )}
 
       {isMixture && (
-  <div className="mixture-fields">
-    <div className="mixture-pair">
-      <div>
-        <label>Nome do fluido 1:</label>
-        <Select
-          options={fluids.map((fluid) => ({ value: fluid, label: fluid }))}
-          value={{ value: fluidName, label: fluidName }}
-          onChange={(selectedOption) => setFluidName(selectedOption.value)}
-        />
-      </div>
-      <div>
-        <label>Proporção do fluido 1:</label>
-        <input
-          type="number"
-          value={proportion1}
-          onChange={(e) => setProportion1(e.target.value)}
-          placeholder="Proporção do fluido 1"
-        />
-      </div>
-    </div>
+        <div className="mixture-fields">
+          <div className="mixture-pair">
+            <div>
+              <label>Nome do fluido 1:</label>
+              <Select
+                options={fluids.map((fluid) => ({ value: fluid, label: fluid }))}
+                value={{ value: fluidName, label: fluidName }}
+                onChange={(selectedOption) => setFluidName(selectedOption.value)}
+              />
+            </div>
+            <div>
+              <label>Proporção do fluido 1:</label>
+              <input
+                type="number"
+                value={proportion1}
+                onChange={(e) => setProportion1(e.target.value)}
+                placeholder="Proporção do fluido 1"
+              />
+            </div>
+          </div>
 
-    <div className="mixture-pair">
-      <div>
-        <label>Nome do fluido 2:</label>
-        <Select
-          options={fluids.map((fluid) => ({ value: fluid, label: fluid }))}
-          value={{ value: fluidName2, label: fluidName2 }}
-          onChange={(selectedOption) => setFluidName2(selectedOption.value)}
-        />
-      </div>
-      <div>
-        <label>Proporção do fluido 2:</label>
-        <input
-          type="number"
-          value={proportion2}
-          onChange={(e) => setProportion2(e.target.value)}
-          placeholder="Proporção do fluido 2"
-        />
-      </div>
-    </div>
-  </div>
-)}
-
+          <div className="mixture-pair">
+            <div>
+              <label>Nome do fluido 2:</label>
+              <Select
+                options={fluids.map((fluid) => ({ value: fluid, label: fluid }))}
+                value={{ value: fluidName2, label: fluidName2 }}
+                onChange={(selectedOption) => setFluidName2(selectedOption.value)}
+              />
+            </div>
+            <div>
+              <label>Proporção do fluido 2:</label>
+              <input
+                type="number"
+                value={proportion2}
+                onChange={(e) => setProportion2(e.target.value)}
+                placeholder="Proporção do fluido 2"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="property-fields">
         <div>

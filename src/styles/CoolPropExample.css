@@ -111,7 +111,6 @@ select:focus {
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
 
-/* Botão */
 .button-container {
   display: flex;
   justify-content: center;
@@ -230,7 +229,7 @@ button:active {
 
   .property-fields > div,
   .mixture-fields > div {
-    flex: 1 1 calc(48% - 1rem); /* Pares lado a lado */
+    flex: 1 1 calc(48% - 1rem); 
     min-width: 250px;
   }
 
@@ -239,3 +238,34 @@ button:active {
     padding: 1.5rem;
   }
 }
+
+.coolprop-form {
+  position: relative;
+}
+
+.info-icon {
+  position: absolute;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 200px; 
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  top: 30px; 
+  left: 0;
+  z-index: 1;
+  font-size: 12px;
+}
+
+.info-icon:hover .tooltip-text {
+  visibility: visible;
+}
+
