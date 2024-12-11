@@ -37,11 +37,19 @@ const CoolPropForm = ({
 
       <div>
         <label>Nome do fluido:</label>
-        <Select
+        <Select className="select-dropdown"
           options={fluids.map((fluid) => ({ value: fluid, label: fluid }))}
           value={{ value: fluidName, label: fluidName }}
           onChange={(selectedOption) => setFluidName(selectedOption.value)}
         />
+      </div>
+
+      <div className="unit-type">
+        <label>Unidade de cálculo: </label>
+        <select value={unitType} onChange={(e) => setUnitType(e.target.value)}>
+          <option value="mass">Massa</option>
+          <option value="mol">Mol</option>
+        </select>
       </div>
 
       <div>
@@ -54,16 +62,6 @@ const CoolPropForm = ({
           Calcular mistura?
         </label>
       </div>
-
-      {isMixture && (
-        <div className="unit-type">
-          <label>Unidade de cálculo:</label>
-          <select value={unitType} onChange={(e) => setUnitType(e.target.value)}>
-            <option value="mass">Massa</option>
-            <option value="mol">Mol</option>
-          </select>
-        </div>
-      )}
 
       {isMixture && (
         <div className="mixture-fields">
@@ -158,5 +156,6 @@ const CoolPropForm = ({
     </div>
   );
 };
+
 
 export default CoolPropForm;

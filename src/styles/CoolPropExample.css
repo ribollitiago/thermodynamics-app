@@ -141,6 +141,11 @@ button:active {
   transform: scale(0.98);
 }
 
+.select-dropdown {
+  margin: 6px 6px 6px 0; 
+}
+
+
 .result {
   margin-top: 2.5rem;
   padding: 1.8rem;
@@ -260,24 +265,28 @@ button:active {
   padding: 5px;
   position: absolute;
   top: 30px; 
-  left: 100%; /* Padrão: aparece à direita */
+  left: 100%; 
   margin-left: 10px;
   z-index: 1;
   font-size: 12px;
-  white-space: nowrap;
+  white-space: normal; 
+  word-wrap: break-word; 
+  box-sizing: border-box; 
 }
 
 .info-icon:hover .tooltip-text {
   visibility: visible;
 }
 
-/* Mobile: tooltip aparece à esquerda */
+
 @media (max-width: 768px) {
   .tooltip-text {
     left: auto;
-    right: 100%; /* Faz a tooltip aparecer à esquerda */
+    right: 100%; 
     margin-left: 0;
     margin-right: 10px;
+    text-align: center; 
   }
 }
+
 
