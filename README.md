@@ -1,18 +1,17 @@
-# thermodynamics-app
+# Thermodynamics Calculator 🔬
 
-Web-based thermodynamic properties calculator — query fluid and substance properties directly in the browser using the CoolProp library compiled to WebAssembly.
+An interactive engineering web application for calculating and visualizing thermodynamic properties of pure fluids and pseudo-pure substances using WebAssembly-compiled **CoolProp**.
 
-🔗 **Live:** [thermoapp.netlify.app](https://thermoapp.netlify.app)
+🔗 **Live Application:** [thermoapp.netlify.app](https://thermoapp.netlify.app/)
 
 ---
 
 ## Features
 
-- 🧪 **Substance lookup** — query thermodynamic properties for a wide range of fluids and substances
-- ⚡ **WebAssembly performance** — CoolProp runs client-side via WASM, no backend required
-- 📐 **Engineering-grade accuracy** — powered by the open-source CoolProp thermodynamic library
-- 🖥️ **Clean UI** — structured input form with organized result display
-- 📦 **Self-contained** — all computation runs in the browser, no data leaves the client
+- **Thermodynamic Property Evaluation** — Compute enthalpy, entropy, pressure, temperature, density, and phase state across diverse industrial fluids.
+- **WebAssembly Engine** — Direct, high-performance in-browser calculations via compiled CoolProp WASM binaries without external backend latency.
+- **Dynamic Formulation** — Fluid selection and pair-property inputs with instant input validation.
+- **Interactive Results Display** — Formatted outputs with SI unit mapping and state property indicators.
 
 ---
 
@@ -21,30 +20,20 @@ Web-based thermodynamic properties calculator — query fluid and substance prop
 | Layer | Technology |
 |---|---|
 | Frontend | React |
-| Thermodynamics Engine | [CoolProp](http://www.coolprop.org/) |
-| Runtime | WebAssembly (WASM) |
+| Computation Core | CoolProp (C++ compiled to WebAssembly) |
+| Styles | CSS3 / Modular layout |
 | Deployment | Netlify |
 
 ---
 
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── CoolPropForm/     # Input form for substance and property selection
-│   └── ResultDisplay/    # Renders computed property results
-├── constants/
-│   └── constants.js      # Unit and property definitions
-├── utils/
-│   └── coolPropKeys.js   # CoolProp key mappings and helpers
-├── coolprop.js           # CoolProp WASM JS bindings
-└── coolprop.wasm         # Compiled CoolProp WebAssembly binary
-```
-
----
-
 ## Getting Started
+
+### Prerequisites
+
+- Node.js (v18+)
+- npm or yarn
+
+### Installation & Run
 
 ```bash
 # Clone the repository
@@ -58,11 +47,9 @@ npm install
 npm start
 ```
 
-> **Note:** The CoolProp WASM binary (`coolprop.wasm`) must be present in the `src/` directory. It is included in the repository and loaded automatically at runtime.
-
 ---
 
 ## Author
 
 **Tiago Ribolli Blasquez**  
-[linkedin.com/in/tiagoribolli](https://www.linkedin.com/in/tiago-ribolli-blasquez-060810244) · [github.com/ribollitiago](https://github.com/ribollitiago)
+[linkedin.com/in/tiagoribolli](https://linkedin.com/in/tiago-ribolli-blasquez-060810244) · [github.com/ribollitiago](https://github.com/ribollitiago)
